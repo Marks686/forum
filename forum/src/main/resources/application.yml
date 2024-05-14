@@ -9,11 +9,11 @@ spring:
     username: root
     password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver # 数据库连接驱动
-
+  mvc:
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER #Springfox-Swagger兼容性配置
 server:
   port: 58080 # 自定义的服务端口号
-
-
 
 logging:
   pattern:

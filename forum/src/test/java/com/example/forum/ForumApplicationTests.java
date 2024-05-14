@@ -34,10 +34,15 @@ class ForumApplicationTests {
     @Test
     void testMybatis () {
         User user = userMapper.selectByPrimaryKey(1l);
-        System.out.println(user.getUsername());
-        System.out.println(user.getArticleCount());
-        System.out.println(user.getCreateTime());
-
+//        System.out.println(user.getUsername());
+//        System.out.println(user.getArticleCount());
+//        System.out.println(user.getCreateTime());
+//        System.out.println(user.getAvatarUrl());
+//        System.out.println(user.getDeleteState());
+//        System.out.println(user.getEmail());
+//        System.out.println(user.getId());
+//        System.out.println(user.getIsAdmin());
+        System.out.println(user);
 
     }
 

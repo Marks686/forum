@@ -28,6 +28,8 @@
         <druid-starter.version>1.2.16</druid-starter.version>
         <!-- Mybatis generator-->
         <mybatis-generator-plugin-version>1.4.1</mybatis-generator-plugin-version>
+        <!-- springfox -->
+        <springfox-boot-starter.version>3.0.0</springfox-boot-starter.version>
     </properties>
     <dependencies>
 
@@ -54,7 +56,6 @@
         </dependency>
 
 
-
         <!-- Mysql驱动 -->
         <dependency>
             <groupId>mysql</groupId>
@@ -72,7 +73,29 @@
             <artifactId>druid-spring-boot-starter</artifactId>
             <version>${druid-starter.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <version>8.0.31</version>
+        </dependency>
+
+
+        <!-- API文档生成，基于swagger2 -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-boot-starter</artifactId>
+            <version>${springfox-boot-starter.version}</version>
+        </dependency>
+        <!-- SpringBoot健康监控 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+
     </dependencies>
+
 
 
 
