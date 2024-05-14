@@ -1,5 +1,7 @@
 package com.example.forum;
 
+import com.example.forum.dao.UserMapper;
+import com.example.forum.model.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -16,9 +18,9 @@ class ForumApplicationTests {
     @Resource
     private DataSource dataSource;
 
-    // 用户的Mapper
-//    @Resource
-//    private UserMapper userMapper;
+//     用户的Mapper
+    @Resource
+    private UserMapper userMapper;
 
     @Test
     void testConnection() throws SQLException {
@@ -29,12 +31,15 @@ class ForumApplicationTests {
         connection.close();
     }
 
-//    @Test
-//    void testMybatis () {
-//        User user = userMapper.selectByPrimaryKey(1l);
-//        System.out.println(user);
-//        System.out.println(user.getUsername());
-//    }
+    @Test
+    void testMybatis () {
+        User user = userMapper.selectByPrimaryKey(1l);
+        System.out.println(user.getUsername());
+        System.out.println(user.getArticleCount());
+        System.out.println(user.getCreateTime());
+
+
+    }
 
 
     @Test
