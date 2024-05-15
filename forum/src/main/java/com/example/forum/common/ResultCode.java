@@ -15,6 +15,7 @@ public enum ResultCode {
     FAILED_LOGIN                (1103, "用户名或密码错误"),
     FAILED_USER_BANNED          (1104, "您已被禁言, 请联系管理员, 并重新登录."),
     FAILED_USER_ARTICLE_COUNT   (1105, "更新帖子数量失败"),
+    FAILED_TWO_PWD_NOT_SAME     (1106, "两次输入的密码不一致"),
 
 
 

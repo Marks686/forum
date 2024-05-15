@@ -1,6 +1,7 @@
 package com.example.forum.dao;
 
 import com.example.forum.model.User;
+import org.apache.ibatis.annotations.Param;
 
 public interface UserMapper {
     int insert(User row);
@@ -12,4 +13,6 @@ public interface UserMapper {
     int updateByPrimaryKeySelective(User row);
 
     int updateByPrimaryKey(User row);
+
+    User selectByUserName(@Param("username") String username);
 }
