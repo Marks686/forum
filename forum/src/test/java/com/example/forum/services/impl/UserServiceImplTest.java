@@ -6,6 +6,7 @@ import com.example.forum.utils.MD5Util;
 import com.example.forum.utils.UUIDUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 
@@ -15,6 +16,7 @@ class UserServiceImplTest {
     @Resource
     private IUserService userService;
 
+    @Transactional
     @Test
     void createNormalUser() {
 
@@ -39,5 +41,17 @@ class UserServiceImplTest {
         // 打印结果
         System.out.println(user);
 
+    }
+
+    @Test
+    void selectByUserName() {
+        User user = userService.selectByUserName("bitboy1");
+        System.out.println(user);
+    }
+
+    @Test
+    void login() {
+        User user = userService.login("bitboy1","123456");
+        System.out.println(user);
     }
 }

@@ -12,4 +12,20 @@ public interface IUserService {
      * @param user 用户信息
      */
     void createNormalUser(User user);
+
+    /**
+     * 根据用户名查询用户信息
+     * @param username
+     * @return
+     */
+    User selectByUserName(String username);
+
+
+    /**
+     * 处理用户登录
+     * @param username
+     * @param password
+     * @return 用户信息
+     */
+    User login(String username,String password);
 }
