@@ -113,10 +113,36 @@
         }
 
         // 构造数据
-        
+        let postData = {
+          username : usernameEl.val(),
+          password : passwordEl.val()
+        };
         // 发送AJAX请求，成功后跳转到index.html
         $.ajax({
-          
+          type: 'post',
+          url : 'user/login',
+          contentType : 'application/x-www-form-urlencoded',
+          data : postData,
+          success : function (respData) {
+            if (respData.code == 0) {
+              location.assign('/index.html');
+            } else {
+              // 提示信息
+              $.toast({
+                  heading: '警告',
+                  text: respData.message,
+                  icon: 'warning'
+              });
+            }
+          },
+          error : function () {
+            // 提示信息
+            $.toast({
+                heading: '错误',
+                text: '访问出现问题，请与管理员联系.',
+                icon: 'error'
+            });
+          }
         });
       });
 
