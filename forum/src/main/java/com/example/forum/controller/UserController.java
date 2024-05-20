@@ -12,10 +12,7 @@
     import io.swagger.annotations.ApiParam;
     import lombok.NonNull;
     import lombok.extern.slf4j.Slf4j;
-    import org.springframework.web.bind.annotation.PostMapping;
-    import org.springframework.web.bind.annotation.RequestMapping;
-    import org.springframework.web.bind.annotation.RequestParam;
-    import org.springframework.web.bind.annotation.RestController;
+    import org.springframework.web.bind.annotation.*;
 
     import javax.annotation.Resource;
     import javax.servlet.http.HttpServletRequest;
@@ -109,4 +106,32 @@ public class UserController {
         return AppResult.success();
     }
 
+
+
+
+
+
+    @ApiOperation("获取用户信息")
+    @GetMapping("/info")
+    public AppResult<User> getUserInfo (HttpServletRequest request,
+                                        @ApiParam("用户Id") @RequestParam(value = "id", required = false) Long id) {
+        // 定义返回的User对象
+        User user = null;
+        // 根据Id的值判断User对象的获取方式
+        if (id == null) {
+            // 1. 如果id为空，从session中获取当前登录的用户信息
+            HttpSession session = request.getSession(false);
+            // 从session中获取当前登录的用户信息
+            user = (User) session.getAttribute(AppConfig.USER_SESSION);
+        } else {
+            // 2. 如果id不为空，从数据库中按Id查询出用户信息
+            user = userService.selectById(id);
+        }
+        // 判断用户对象是否为空
+        if (user == null) {
+            return AppResult.failed(ResultCode.FAILED_USER_NOT_EXISTS);
+        }
+        // 返回正常的结果
+        return AppResult.success(user);
+    }
 }

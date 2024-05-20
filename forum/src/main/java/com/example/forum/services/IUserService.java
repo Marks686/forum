@@ -28,4 +28,11 @@ public interface IUserService {
      * @return 用户信息
      */
     User login(String username,String password);
+
+    /**
+     * 根据ID查询用户信息
+     * @param id 用户ID
+     * @return User 对象
+     */
+    User selectById(Long id);
 }

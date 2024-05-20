@@ -111,4 +111,19 @@ public class UserServiceImpl implements IUserService {
         // 登录成功，返回用户信息
         return user;
     }
+
+    @Override
+    public User selectById(Long id) {
+        // 1. 非空校验
+        if (id == null) {
+            // 打印日志
+            log.warn(ResultCode.FAILED_PARAMS_VALIDATE.toString());
+            // 抛出异常
+            throw new ApplicationException(AppResult.failed(ResultCode.FAILED_LOGIN));
+        }
+        // 调用DAO查询数据库并获取对象
+        User user = userMapper.selectByPrimaryKey(id);
+        // 返回结果
+        return user;
+    }
 }
