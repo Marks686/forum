@@ -433,7 +433,12 @@
     // 成功后，跳转到sign-in.html
     $('#index_user_logout').click(function () {
       $.ajax({
-        
+        type : 'get',
+        url : 'user/logout',
+        complete : function () {
+          // 当前请求完成时，不论成功与失败都跳转到登录页面
+          location.assign('/sign-in.html');
+        }
       });
     });
 
