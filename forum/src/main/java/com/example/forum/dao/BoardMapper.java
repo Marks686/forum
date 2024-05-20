@@ -1,6 +1,9 @@
 package com.example.forum.dao;
 
 import com.example.forum.model.Board;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface BoardMapper {
     int insert(Board row);
@@ -12,4 +15,6 @@ public interface BoardMapper {
     int updateByPrimaryKeySelective(Board row);
 
     int updateByPrimaryKey(Board row);
+
+    List<Board> selectByNum(@Param("num") Integer num);
 }
