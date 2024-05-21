@@ -33,5 +33,48 @@ public class BoardServiceImpl implements IBoardService {
         return result;
     }
 
+    @Override
+    public Board selectById(Long id) {
+        if (id == null || id <= 0) {
+            // 打印日志
+            log.warn(ResultCode.FAILED_BOARD_ARTICLE_COUNT.toString());
+            // 抛出异常
+            throw new ApplicationException(AppResult.failed(ResultCode.FAILED_BOARD_ARTICLE_COUNT));
+        }
+        // 调用DAO查询数据库
+        Board board = boardMapper.selectByPrimaryKey(id);
+        // 返回结果
+        return board;
+    }
+
+    @Override
+    public void addOneArticleCountById(Long id) {
+        if (id == null || id <= 0) {
+            // 打印日志
+            log.warn(ResultCode.FAILED_BOARD_ARTICLE_COUNT.toString());
+            // 抛出异常
+            throw new ApplicationException(AppResult.failed(ResultCode.FAILED_BOARD_ARTICLE_COUNT));
+        }
+        // 查询对应的版块
+        Board board = boardMapper.selectByPrimaryKey(id);
+        if (board == null) {
+            // 打印日志
+            log.warn(ResultCode.ERROR_IS_NULL.toString() + ", board id = " + id);
+            // 抛出异常
+            throw new ApplicationException(AppResult.failed(ResultCode.ERROR_IS_NULL));
+        }
+        // 更新帖子数量
+        Board updateBoard = new Board();
+        updateBoard.setId(board.getId());
+        updateBoard.setArticleCount(board.getArticleCount() + 1);
+        // 调用DAO，执行更新
+        int row = boardMapper.updateByPrimaryKeySelective(updateBoard);
+        // 判断受影响的行数
+        if (row != 1) {
+            log.warn(ResultCode.FAILED.toString() + ", 受影响的行数不等于 1 .");
+            throw new ApplicationException(AppResult.failed(ResultCode.FAILED));
+        }
+    }
+
 
 }

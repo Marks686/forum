@@ -18,6 +18,9 @@ public enum ResultCode {
     FAILED_TWO_PWD_NOT_SAME     (1106, "两次输入的密码不一致"),
 
 
+    //板块错误码
+    FAILED_BOARD_ARTICLE_COUNT  (1201,"更新帖子数量失败"),
+    FAILED_BOARD_BANNED          (1202,"板块状态异常"),
 
     ERROR_SERVICES              (2000, "服务器内部错误"),
     ERROR_IS_NULL               (2001, "IS NULL.");
