@@ -81,6 +81,7 @@ public class ArticleServiceImpl implements IArticleService {
                 + ", board id = " + article.getBoardId() + ", article id  = " + article.getId()
                 + "发帖成功");
 
+
 //        throw new ApplicationException(AppResult.failed("测试事务回滚"));
     }
 }

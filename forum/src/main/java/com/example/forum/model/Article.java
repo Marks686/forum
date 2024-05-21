@@ -30,4 +30,10 @@ public class Article {
 
     private String content;
 
+    // 作者
+    private User user;
+
+    //版块
+    private Board board;
+
 }

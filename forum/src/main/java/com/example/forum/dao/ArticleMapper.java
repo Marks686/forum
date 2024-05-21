@@ -2,6 +2,8 @@ package com.example.forum.dao;
 
 import com.example.forum.model.Article;
 
+import java.util.List;
+
 public interface ArticleMapper {
     int insert(Article row);
 
@@ -14,4 +16,10 @@ public interface ArticleMapper {
     int updateByPrimaryKeyWithBLOBs(Article row);
 
     int updateByPrimaryKey(Article row);
+
+    /**
+     * 查询所有帖子列表
+     * @return
+     */
+    List<Article> selectAll();
 }
