@@ -1,6 +1,7 @@
 package com.example.forum.dao;
 
 import com.example.forum.model.Article;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -22,4 +23,11 @@ public interface ArticleMapper {
      * @return
      */
     List<Article> selectAll();
+
+    /**
+     * 根据板块Id查询所有的帖子列表
+     * @param boardId
+     * @return
+     */
+    List<Article> selectAllByBoardId(@Param("boardId") Long boardId);
 }
