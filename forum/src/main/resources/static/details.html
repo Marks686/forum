@@ -257,8 +257,30 @@
     // url: '/article/getById?id=' + currentArticle.id,
     // 成功后， 调用initArticleDetails()方法，初始化页面内容
     $.ajax({
-      
-
+      type : 'get',
+      url : 'article/details?id=' + currentArticle.id,
+      // 回调
+      success : function (respData) {
+        if (respData.code == 0) {
+          // 成功
+          initArticleDetails(respData.data);
+        } else {
+          // 提示信息
+          $.toast({
+                heading: '警告',
+                text: respData.message,
+                icon: 'warning'
+            });
+        }
+      },
+      error : function () {
+        // 提示信息
+        $.toast({
+            heading: '错误',
+            text: '访问出现问题，请与管理员联系.',
+            icon: 'error'
+        });
+      }
     });
 
     // ===================== 初始化页面内空 ======================

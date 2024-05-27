@@ -96,4 +96,29 @@ public class ArticleController {
         // 响应结果
         return AppResult.success(articles);
     }
+
+
+    @ApiOperation("根据帖子Id获取详情")
+    @GetMapping("/details")
+    public AppResult<Article> getDetails (HttpServletRequest request,
+                                          @ApiParam("帖子Id") @RequestParam("id") @NonNull Long id) {
+        // 从session中获取当前登录的用户
+        HttpSession session = request.getSession(false);
+        User user = (User) session.getAttribute(AppConfig.USER_SESSION);
+
+        // 调用Service，获取帖子详情
+        Article article = articleService.selectDetailById(id);
+        // 判断结果是否为空
+        if (article == null) {
+            // 返回错误信息
+            return AppResult.failed(ResultCode.FAILED_ARTICLE_NOT_EXISTS);
+        }
+//        // 判断当前用户是否为作者
+//        if (user.getId() == article.getUserId()) {
+//            // 标识为作者
+//            article.setOwn(true);
+//        }
+        // 返回结果
+        return AppResult.success(article);
+    }
 }
