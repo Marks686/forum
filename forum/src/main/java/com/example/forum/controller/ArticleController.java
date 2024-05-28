@@ -121,4 +121,44 @@ public class ArticleController {
         // 返回结果
         return AppResult.success(article);
     }
+
+
+    @ApiOperation("修改帖子")
+    @PostMapping("/modify")
+    public AppResult modify (HttpServletRequest request,
+                             @ApiParam("帖子Id") @RequestParam("id") @NonNull Long id,
+                             @ApiParam("帖子标题") @RequestParam("title") @NonNull String title,
+                             @ApiParam("帖子正文") @RequestParam("content") @NonNull String content) {
+        // 获取当前登录的用户
+        HttpSession session = request.getSession(false);
+        User user = (User) session.getAttribute(AppConfig.USER_SESSION);
+        // 校验用户状态
+        if (user.getState() == 1) {
+            // 返回错误描述
+            return AppResult.failed(ResultCode.FAILED_USER_BANNED);
+        }
+        // 查询帖子详情
+        Article article = articleService.selectById(id);
+        // 校验帖子是否有效
+        if (article == null) {
+            // 返回错误描述
+            return AppResult.failed(ResultCode.FAILED_ARTICLE_NOT_EXISTS);
+        }
+        // 判断用户是不是作者
+        if (user.getId() != article.getUserId()) {
+            // 返回错误描述
+            return AppResult.failed(ResultCode.FAILED_FORBIDDEN);
+        }
+        // 判断帖子的状态 - 已归档
+        if (article.getState() == 1 || article.getDeleteState() == 1) {
+            // 返回错误描述
+            return AppResult.failed(ResultCode.FAILED_ARTICLE_BANNED);
+        }
+        // 调用Service
+        articleService.modify(id, title, content);
+        // 打印日志
+        log.info("帖子更新成功. Article id = " + id + "User id = " + user.getId() + ".");
+        // 返回正确的结果
+        return AppResult.success();
+    }
 }

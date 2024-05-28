@@ -34,4 +34,21 @@ public interface IArticleService {
      * @return
      */
     Article selectDetailById(Long id);
+
+
+    /**
+     * 根据帖子Id查询记录
+     * @param id 帖子id
+     * @return
+     */
+    Article selectById(Long id);
+
+
+    /**
+     * 编辑帖子
+     * @param id 帖子id
+     * @param title 帖子标题
+     * @param content 帖子正文
+     */
+    public void modify(Long id, String title, String content);
 }

@@ -23,7 +23,8 @@ public enum ResultCode {
     FAILED_BOARD_BANNED         (1202,"板块状态异常"),
     FAILED_BOARD_NOT_EXISTS     (1203,"板块不存在"),
 
-    FAILED_ARTICLE_NOT_EXISTS    (1301,"帖子不存在"),
+    FAILED_ARTICLE_NOT_EXISTS   (1301,"帖子不存在"),
+    FAILED_ARTICLE_BANNED       (1302,"帖子状态异常"),
 
     ERROR_SERVICES              (2000, "服务器内部错误"),
     ERROR_IS_NULL               (2001, "IS NULL.");
