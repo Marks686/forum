@@ -51,4 +51,18 @@ public interface IArticleService {
      * @param content 帖子正文
      */
     public void modify(Long id, String title, String content);
+
+    /**
+     * 点赞帖子
+     * @param id 帖子id
+     */
+    void thumbsUpById(Long id);
+
+
+    /**
+     * 根据Id删除帖子
+     * @param id 帖子id
+     */
+    @Transactional // 事务管理
+    void deleteById(Long id);
 }

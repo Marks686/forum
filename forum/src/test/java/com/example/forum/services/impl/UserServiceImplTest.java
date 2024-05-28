@@ -16,8 +16,9 @@ class UserServiceImplTest {
     @Resource
     private IUserService userService;
 
-    @Transactional
+
     @Test
+    @Transactional
     void createNormalUser() {
 
         // 构造User对象
@@ -66,5 +67,10 @@ class UserServiceImplTest {
     void addOneArticleCountById() {
         userService.addOneArticleCountById(1l);
         System.out.println("更新成功");
+    }
+
+    @Test
+    @Transactional
+    void subOneArticleCountById() {
     }
 }
