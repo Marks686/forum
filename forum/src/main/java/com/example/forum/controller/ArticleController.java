@@ -113,11 +113,11 @@ public class ArticleController {
             // 返回错误信息
             return AppResult.failed(ResultCode.FAILED_ARTICLE_NOT_EXISTS);
         }
-//        // 判断当前用户是否为作者
-//        if (user.getId() == article.getUserId()) {
-//            // 标识为作者
-//            article.setOwn(true);
-//        }
+        // 判断当前用户是否为作者
+        if (user.getId() == article.getUserId()) {
+            // 标识为作者
+            article.setOwn(true);
+        }
         // 返回结果
         return AppResult.success(article);
     }
