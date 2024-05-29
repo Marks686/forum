@@ -40,4 +40,6 @@ public class ArticleReply {
     // 更新时间
     private Date updateTime;
 
+    // 关联对象 - 回复的发布者
+    private User user;
 }

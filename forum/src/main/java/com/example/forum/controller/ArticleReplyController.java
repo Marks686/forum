@@ -13,14 +13,12 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Api(tags = "回复接口")
 @Slf4j
@@ -69,19 +67,19 @@ public class ArticleReplyController {
         return AppResult.success();
     }
 
-//    @ApiOperation("获取回复列表")
-//    @GetMapping("/getReplies")
-//    public AppResult<List<ArticleReply>> getRepliesByArticleId (@ApiParam("帖子Id") @RequestParam("articleId") @NonNull Long articleId) {
-//        // 校验帖子是否存在
-//        Article article = articleService.selectById(articleId);
-//        if (article == null || article.getDeleteState() == 1) {
-//            // 返回错误提示
-//            return AppResult.failed(ResultCode.FAILED_ARTICLE_NOT_EXISTS);
-//        }
-//        // 调用Service
-//        List<ArticleReply> articleReplies = articleReplyService.selectByArticleId(articleId);
-//        // 返回结果
-//        return AppResult.success(articleReplies);
-//
-//    }
+    @ApiOperation("获取回复列表")
+    @GetMapping("/getReplies")
+    public AppResult<List<ArticleReply>> getRepliesByArticleId (@ApiParam("帖子Id") @RequestParam("articleId") @NonNull Long articleId) {
+        // 校验帖子是否存在
+        Article article = articleService.selectById(articleId);
+        if (article == null || article.getDeleteState() == 1) {
+            // 返回错误提示
+            return AppResult.failed(ResultCode.FAILED_ARTICLE_NOT_EXISTS);
+        }
+        // 调用Service
+        List<ArticleReply> articleReplies = articleReplyService.selectByArticleId(articleId);
+        // 返回结果
+        return AppResult.success(articleReplies);
+
+    }
 }
