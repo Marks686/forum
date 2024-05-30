@@ -29,6 +29,13 @@ public interface IArticleService {
     List<Article> selectAllByBoardId(Long boardId);
 
     /**
+     * 根据用户Id查询帖子列表
+     * @param userId 用户Id
+     * @return 帖子列表
+     */
+    List<Article> selectByUserId(Long userId);
+
+    /**
      * 根据帖子Id查询详情
      * @param id
      * @return
@@ -66,5 +73,12 @@ public interface IArticleService {
     @Transactional // 事务管理
     void deleteById(Long id);
 
+    /**
+     * 文章回复数+1
+     * @param id 板块Id
+     */
     void addOneReplyCountById(Long id);
+
+
+
 }
