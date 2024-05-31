@@ -73,4 +73,25 @@ class UserServiceImplTest {
     @Transactional
     void subOneArticleCountById() {
     }
+
+    @Test
+    @Transactional
+    void modifyInfo() {
+        User user = new User();
+        user.setId(9l);
+        user.setUsername("testUser1");
+        user.setNickname("testUser1");
+        user.setGender((byte) 0);
+        user.setEmail("qq.com");
+        user.setPhoneNum("12312312312");
+        user.setRemark("测试");
+        // 调用service
+        userService.modifyInfo(user);
+    }
+
+    @Test
+    @Transactional
+    void modifyPassword() {
+
+    }
 }

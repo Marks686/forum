@@ -6,6 +6,7 @@
     import com.example.forum.model.User;
     import com.example.forum.services.IUserService;
     import com.example.forum.utils.MD5Util;
+    import com.example.forum.utils.StringUtil;
     import com.example.forum.utils.UUIDUtil;
     import io.swagger.annotations.Api;
     import io.swagger.annotations.ApiOperation;
@@ -150,4 +151,82 @@ public class UserController {
 
             return AppResult.success("退出成功");
         }
-}
+
+
+        /**
+         * 修改个人信息
+         * @param username 用户名
+         * @param nickname 昵称
+         * @param gender 性别
+         * @param email 邮箱
+         * @param phoneNum 电话号
+         * @param remark 个人简介
+         * @return AppResult
+         */
+        @ApiOperation("修改个人信息")
+        @PostMapping("/modifyInfo")
+        public AppResult modifyInfo (HttpServletRequest request,
+                                     @ApiParam("用户名") @RequestParam(value = "username",required = false) String username,
+                                     @ApiParam("昵称") @RequestParam(value = "nickname",required = false) String nickname,
+                                     @ApiParam("性别") @RequestParam(value = "gender",required = false) Byte gender,
+                                     @ApiParam("邮箱") @RequestParam(value = "email",required = false) String email,
+                                     @ApiParam("电话号") @RequestParam(value = "phoneNum",required = false) String phoneNum,
+                                     @ApiParam("个人简介") @RequestParam(value = "remark",required = false) String remark) {
+            // 1. 接收参数
+            // 2. 对参数做非空校验（全部都为空，则返回错误描述）
+            if (StringUtil.isEmpty(username) && StringUtil.isEmpty(nickname)
+                    && StringUtil.isEmpty(email) && StringUtil.isEmpty(phoneNum)
+                    && StringUtil.isEmpty(remark) && gender == null) {
+                // 返回错误信息
+                return AppResult.failed("请输入要修改的内容");
+            }
+
+            // 从session中获取用户Id
+            HttpSession session = request.getSession(false);
+            User user = (User) session.getAttribute(AppConfig.USER_SESSION);
+
+            // 3. 封装对象
+            User updateUser = new User();
+            updateUser.setId(user.getId()); // 用户Id
+            updateUser.setUsername(username); // 用户名
+            updateUser.setNickname(nickname); // 昵称
+            updateUser.setGender(gender); // 性别
+            updateUser.setEmail(email); // 邮箱
+            updateUser.setPhoneNum(phoneNum); // 电话
+            updateUser.setRemark(remark); // 个人简介
+
+            // 4. 调用Service中的方法
+            userService.modifyInfo(updateUser);
+            // 5. 查询最新的用户信息
+            user = userService.selectById(user.getId());
+            // 6. 把最新的用户信息设置到session中
+            session.setAttribute(AppConfig.USER_SESSION, user);
+            // 7. 返回结果
+            return AppResult.success(user);
+        }
+
+        @ApiOperation("修改密码")
+        @PostMapping("/modifyPwd")
+        public AppResult modifyPassword (HttpServletRequest request,
+                                         @ApiParam("原密码") @RequestParam("oldPassword") @NonNull String oldPassword,
+                                         @ApiParam("新密码") @RequestParam("newPassword") @NonNull String newPassword,
+                                         @ApiParam("确认密码") @RequestParam("passwordRepeat") @NonNull String passwordRepeat) {
+            // 1. 校验新密码与确认密码是否相同
+            if (!newPassword.equals(passwordRepeat)) {
+                // 返回错误描述
+                return AppResult.failed(ResultCode.FAILED_TWO_PWD_NOT_SAME);
+            }
+            // 2. 获取当前登录的用户信息
+            HttpSession session = request.getSession(false);
+            User user = (User) session.getAttribute(AppConfig.USER_SESSION);
+            // 3. 调用Service
+            userService.modifyPassword(user.getId(), newPassword, oldPassword);
+            // 4. 销毁session
+            if (session != null) {
+                session.invalidate();
+            }
+            // 5. 返回结果
+            return AppResult.success();
+        }
+
+    }
