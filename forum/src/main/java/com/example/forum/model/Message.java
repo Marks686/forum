@@ -22,5 +22,5 @@ public class Message {
 
     private Date updateTime;
 
-
+    private User postUser;
 }
